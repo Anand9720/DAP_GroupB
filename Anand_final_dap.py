@@ -569,7 +569,7 @@ plot_top_directors(df1)
 
 
 # In[ ]:
-
+client.close()
 
 
 
