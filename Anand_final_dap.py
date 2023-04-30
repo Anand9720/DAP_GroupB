@@ -335,15 +335,15 @@ print(df1.describe())
 # In[73]:
 
 
-sns.set(font_scale=1)
-corr = df1.corr()
-mask = np.zeros_like(corr)
-mask[np.triu_indices_from(mask)] = True
-with sns.axes_style("white"):
-    plt.figure(figsize=(9,9))
-    ax = sns.heatmap(corr, mask=mask, vmax=.3, square=True, annot=True)
+# Drop non-numeric columns
+df1_numeric = df1.select_dtypes(include=[np.number])
 
+# Calculate correlation matrix
+corr = df1_numeric.corr()
 
+# Plot heatmap
+sns.heatmap(corr, annot=True, cmap='coolwarm')
+plt.show()
 # In[19]:
 
 
