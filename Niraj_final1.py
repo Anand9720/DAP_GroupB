@@ -26,7 +26,7 @@ collection2 = db['Niraj_data']
 # Open CSV file for reading
 
 
-with open("C:\\Users\\WorkStation\\Desktop\\amazon_prime_titles_output.json") as file1:
+with open("amazon_prime_titles_output.json") as file1:
     file_data1 = json.load(file1)
 
 collection2.insert_many(file_data1)
