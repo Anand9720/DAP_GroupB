@@ -13,7 +13,7 @@ import plotly.figure_factory as ff
 import matplotlib.pyplot as plt
 
 
-with open('C:\\Users\\WorkStation\\Desktop\\amazon_prime_titles_output.json', 'r') as file:
+with open('amazon_prime_titles_output.json', 'r') as file:
     data = json.load(file)
 print(data)
 
