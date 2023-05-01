@@ -19,6 +19,8 @@ from plotly.offline import init_notebook_mode, iplot
 import warnings
 warnings.filterwarnings("ignore")
 
+# Initialize plotly notebook mode
+
 
 
 with open('netflix_output.json', 'r') as f:
@@ -36,7 +38,7 @@ client = MongoClient('mongodb+srv://jhaanand9720:Parks321@cluster0.mhxavb3.mongo
 db = client['DAP3_DataBase']
 collection1 = db['Kapil_data']
 # Open CSV file for reading
-with open('/Users/kapiltyagi/Downloads/netflix_output.json') as file:
+with open('netflix_output.json') as file:
     file_data = json.load(file)
     
 collection1.insert_many(file_data)
@@ -105,12 +107,12 @@ df_1.info()
 
 
 # Convert the 'date_added' column to datetime format
-df_1["date_added"] = pd.to_datetime(df_1['date_added'])
+#df_1["date_added"] = pd.to_datetime(df_1['date_added'])
 
 # Extract the month and year from the 'date_added' column and create new columns for them
-df_1['month_added']=df_1['date_added'].dt.month
-df_1['month_name_added']=df_1['date_added'].dt.month_name()
-df_1['year_added'] = df_1['date_added'].dt.year
+# df_1['month_added']=df_1['date_added'].dt.month
+#df_1['month_name_added']=df_1['date_added'].dt.month_name()
+#df_1['year_added'] = df_1['date_added'].dt.year
 
 # Drop the 'date_added' column since we no longer need it
 df_1.drop('date_added',axis=1,inplace=True)
@@ -266,10 +268,6 @@ from matplotlib import gridspec
 fig = plt.figure(figsize=(20, 7))
 gs = gridspec.GridSpec(nrows=1, ncols=2, height_ratios=[6], width_ratios=[10, 5])
 
-ax = plt.subplot(gs[0])
-sns.barplot(top20country.index, top20country, ax=ax, palette="RdGy")
-ax.set_xticklabels(top20country.index, rotation='90')
-ax.set_title('Top 20 countries with most contents', fontsize=15, fontweight='bold')
 
 ax2 = plt.subplot(gs[1])
 ax2.pie(top20country, labels=top20country.index, shadow=True, startangle=0, colors=sns.color_palette("RdGy", n_colors=20),
@@ -285,13 +283,6 @@ plt.close()
 # In[15]:
 
 
-country = df_1.set_index('title').country.str.split(', ', expand=True).stack().reset_index(level=1, drop=True);
-country = country[country != 'unknown']
-
-iplot([go.Choropleth(
-locationmode='country names',
-locations=country,
-z=country.value_counts())])
 
 
 # # Content added over the years
@@ -308,29 +299,6 @@ df_1_movies = df_1[df_1["type"] == "Movie"]
 # In[17]:
 
 
-df_1_content = df_1['year_added'].value_counts().reset_index().rename(columns = {
-    'year_added' : 'count', 'index' : 'year_added'}).sort_values('year_added')
-df_1_content['percent'] = df_1_content['count'].apply(lambda x : 100*x/sum(df_1_content['count']))
-
-
-df_1_tv1 = df_1_tv['year_added'].value_counts().reset_index().rename(columns = {
-    'year_added' : 'count', 'index' : 'year_added'}).sort_values('year_added')
-df_1_tv1['percent'] = df_1_tv1['count'].apply(lambda x : 100*x/sum(df_1_tv1['count']))
-
-
-df_1_movies1 = df_1_movies['year_added'].value_counts().reset_index().rename(columns = {
-    'year_added' : 'count', 'index' : 'year_added'}).sort_values('year_added')
-df_1_movies1['percent'] = df_1_movies1['count'].apply(lambda x : 100*x/sum(df_1_movies1['count']))
-
-t1 = go.Scatter(x=df_1_movies1['year_added'], y=df_1_movies1["count"], name="Movies", marker=dict(color="#a678de"))
-t2 = go.Scatter(x=df_1_tv1['year_added'], y=df_1_tv1["count"], name="TV Shows", marker=dict(color="#6ad49b"))
-t3 = go.Scatter(x=df_1_content['year_added'], y=df_1_content["count"], name="Total Contents", marker=dict(color="brown"))
-
-data = [t1, t2, t3]
-
-layout = go.Layout(title="Content added over the years", legend=dict(x=0.1, y=1.1, orientation="h"))
-fig = go.Figure(data, layout=layout)
-fig.show()
 
 
 # The growth in number of movies on netflix is much higher than that of TV shows About 1200 new movies were added in both 2018 and 2019 The growth in content started from 2013
@@ -340,34 +308,6 @@ fig.show()
 # In[18]:
 
 
-df_1_content = df_1[['month_added','month_name_added']].value_counts().reset_index().rename(columns = {
-    0 : 'count'}).sort_values('month_added').drop('month_added',axis=1)
-df_1_content['percent'] = df_1_content['count'].apply(lambda x : 100*x/sum(df_1_content['count']))
-
-
-df_1_tv2 = df_1_tv[['month_added','month_name_added']].value_counts().reset_index().rename(columns = {
-    0 : 'count'}).sort_values('month_added').drop('month_added',axis=1)
-df_1_tv2['percent'] = df_1_tv2['count'].apply(lambda x : 100*x/sum(df_1_tv2['count']))
-
-
-df_1_movies2 = df_1_movies[['month_added','month_name_added']].value_counts().reset_index().rename(columns = {
-    0 : 'count'}).sort_values('month_added').drop('month_added',axis=1)
-df_1_movies2['percent'] = df_1_movies2['count'].apply(lambda x : 100*x/sum(df_1_movies2['count']))
-
-t1 = go.Scatter(x=df_1_movies2['month_name_added'], y=df_1_movies2["count"], name="Movies", marker=dict(color="#a678de"))
-t2 = go.Scatter(x=df_1_tv2['month_name_added'], y=df_1_tv2["count"], name="TV Shows", marker=dict(color="#6ad49b"))
-t3 = go.Scatter(x=df_1_content['month_name_added'], y=df_1_content["count"], name="Total Contents", marker=dict(color="Brown"))
-
-
-data = [t1, t2, t3]
-
-layout = go.Layout(title="Content added over the years", legend=dict(x=0.1, y=1.1, orientation="h"))
-fig = go.Figure(data, layout=layout)
-fig.show()
-
-
-# * The growth in contents are higher in the first three months and the last three months of the year.
-# * Least number of contents are added in the month of February.
 
 # # Genre Relationship
 
@@ -376,32 +316,9 @@ fig.show()
 # In[19]:
 
 
-from sklearn.preprocessing import MultiLabelBinarizer 
-
-def relation_heatmap(df_1, title):
-    df_1['genre'] = df_1['listed_in'].apply(lambda x :  x.replace(' ,',',').replace(', ',',').split(',')) 
-    Types = []
-    for i in df_1['genre']: Types += i
-    Types = set(Types)
-    print("There are {} types in the Netflix {} Dataset".format(len(Types),title))    
-    test = df_1['genre']
-    mlb = MultiLabelBinarizer()
-    res = pd.DataFrame(mlb.fit_transform(test), columns=mlb.classes_, index=test.index)
-    corr = res.corr()
-    mask = np.zeros_like(corr, dtype=np.bool)
-    mask[np.triu_indices_from(mask)] = True
-    fig, ax = plt.subplots(figsize=(10, 7))
-    pl = sns.heatmap(corr, mask=mask, cmap= "coolwarm", vmax=.5, vmin=-.5, center=0, square=True, linewidths=.7,
-                     cbar_kws={"shrink": 0.6})
-    plt.savefig("relation_heatmap.png")
-    plt.close()
-    #plt.show()
 
 
-# In[20]:
 
-
-relation_heatmap(df_1_movies, 'Movie')
 
 
 # In[21]:
@@ -624,6 +541,10 @@ client.close()
 
 
 # In[ ]:
+
+
+
+
 
 
 
