@@ -19,8 +19,6 @@ from plotly.offline import init_notebook_mode, iplot
 import warnings
 warnings.filterwarnings("ignore")
 
-# Initialize plotly notebook mode
-# init_notebook_mode(connected=True)
 
 
 with open('netflix_output.json', 'r') as f:
