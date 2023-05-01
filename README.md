@@ -49,14 +49,15 @@ Install all Following Libraries before running the code:
 For visualization
 •	import matplotlib.pyplot as plt
 
-        For mongodb
+ For mongodb
         
 •	import csv
 •	from pymongo import MongoClient
+
 For PostgreSql
 •	from sqlalchemy import create_engine
 •	import psycopg2
-
+** Note: keep password of your server 1234 **
 Usage
 Run all the cell in Jupiter Notebook.
 
