@@ -7,6 +7,8 @@ Third dataset is of Amazon Prime Movie data which was in json format.
 
 After Loading Dataset we store data in Cloud version of MongDB i.e in MongoDb Atlas.
 Then we fetched and did EDA (Exploratory Data analysis) and load data in POstgresSql and after that we perform Data Visualization on it.
+Then we did comparision analysis of amazon movie and netflix movie
+
 
 Table of Contents
 •	Features
