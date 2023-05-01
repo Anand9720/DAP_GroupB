@@ -103,6 +103,7 @@ print(len(votes))
 
 
 
+
 import csv
 from pymongo import MongoClient
 import pandas as pd
@@ -531,35 +532,6 @@ year_count.plot()
 # In[55]:
 
 
-get_ipython().system('pip install itertools')
-
-
-# In[79]:
-
-
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-import  numpy as np
-from itertools import count
-import pandas as pd
-
-df3 = pd.DataFrame(year_count.index)
-df3['Movie_Count']=year_count.values
-x=[]
-y=[]
-fig,ax=plt.subplots()
-ax.plot(year_count.index,year_count.values)
-counter=count(0,1)
-def update(i):
-    idx=next(counter)
-    x.append(df3.iloc[idx,0])
-    y.append(df3.iloc[idx,1])
-    plt.cla()
-    ax.plot(x,y)
-
-ani=FuncAnimation(fig=fig,func=update,interval=9000000000)
-plt.savefig('yearly movie count_graph.png')
-plt.close()
 
 #plt.show()
 
