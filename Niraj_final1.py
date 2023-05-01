@@ -15,7 +15,6 @@ import matplotlib.pyplot as plt
 
 with open('amazon_prime_titles_output.json', 'r') as file:
     data = json.load(file)
-print(data)
 
 import csv
 from pymongo import MongoClient
