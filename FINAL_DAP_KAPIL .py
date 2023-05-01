@@ -20,7 +20,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # Initialize plotly notebook mode
-init_notebook_mode(connected=True)
+# init_notebook_mode(connected=True)
 
 
 with open('netflix_output.json', 'r') as f:
