@@ -9,6 +9,13 @@ After Loading Dataset we store data in Cloud version of MongDB i.e in MongoDb At
 Then we fetched and did EDA (Exploratory Data analysis) and load data in POstgresSql and after that we perform Data Visualization on it.
 Then we did comparision analysis of amazon movie and netflix movie
 
+we have then automated our code through jenkins pipeline.
+Jenkins pipeline that we use to automate the building and testing of a Python project from GitHub:
+
+1.Install the necessary plugins for Jenkins to work with Python and GitHub repositories.
+2.Set up your Jenkins environment variables, such as your GitHub credentials and the path to your Python installation.
+3.Create a new Jenkins pipeline job and configure it to use the Jenkinsfile located in your GitHub repository.
+4.In the Jenkinsfile, define the stages of the pipeline:
 
 Table of Contents
 •	Features
